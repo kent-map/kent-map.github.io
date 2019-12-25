@@ -1,2 +1,2 @@
-/api/* /.netlify/functions/hello
+/hello /.netlify/functions/hello
 /test /inspire
