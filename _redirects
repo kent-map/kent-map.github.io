@@ -1,1 +1,1 @@
-/api /.netlify/functions
+/api/* /.netlify/functions/hello
