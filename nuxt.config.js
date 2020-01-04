@@ -1,4 +1,4 @@
-mport colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors'
 
 const routerBase = {
   'GH_PAGES': { router: { base: '/kent-maps/' } }
