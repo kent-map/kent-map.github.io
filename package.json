@@ -1,13 +1,14 @@
 {
   "name": "visual-essay-client",
-  "version": "1.0.0",
-  "description": "Visual Essay",
+  "version": "0.1.0",
+  "description": "Kent Maps",
   "author": "Ron Snyder",
   "private": true,
   "scripts": {
-    "dev": "DEPLOY_ENV=DEV nuxt",
+    "dev": "nuxt",
+    "build": "nuxt build",
     "start": "nuxt start",
-    "build": "DEPLOY_ENV=GH_PAGES nuxt generate"
+    "generate": "nuxt generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
