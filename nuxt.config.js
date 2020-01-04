@@ -1,7 +1,17 @@
-import colors from 'vuetify/es5/util/colors'
+mport colors from 'vuetify/es5/util/colors'
+
+const routerBase = {
+  'GH_PAGES': { router: { base: '/kent-maps/' } }
+}[process.env.DEPLOY_ENV] || { router: { base: '/' } }
+
+const BUNDLE_VERSION = require('../package.json').version
 
 export default {
+  // ...routerBase,
   mode: 'spa',
+  env: {
+    deployEnv: process.env.DEPLOY_ENV || 'PROD'
+  },
   /*
   ** Headers of the page
   */
@@ -13,7 +23,12 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
+    script: [
+        // { src: 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.js' },
+        { src: process.env.DEPLOY_ENV === 'DEV' ? 'http://localhost:8081/js/index.js' : `https://visual-essays.online/lib/visual-essay-${BUNDLE_VERSION}.min.js` }
+      ],
     link: [
+      // { rel: 'stylesheet', href: 'https://unpkg.com/leaflet@1.6.0/dist/leaflet.css' },
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
@@ -30,6 +45,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '@/plugins/detect-environment.js', ssr: false },
   ],
   /*
   ** Nuxt.js dev-modules
@@ -43,8 +59,6 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv',
   ],
   /*
   ** Axios module configuration
@@ -59,7 +73,7 @@ export default {
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -82,5 +96,9 @@ export default {
     */
     extend (config, ctx) {
     }
+  },
+  generate: {
+    dir: '../dist',
+    fallback: true,
   }
 }
