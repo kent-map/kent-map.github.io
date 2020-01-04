@@ -4,7 +4,7 @@ const routerBase = {
   'GH_PAGES': { router: { base: '/kent-maps/' } }
 }[process.env.DEPLOY_ENV] || { router: { base: '/' } }
 
-const BUNDLE_VERSION = require('../package.json').version
+const BUNDLE_VERSION = require('./package.json').version
 
 export default {
   // ...routerBase,
