@@ -181,6 +181,7 @@
   .v-toolbar__title {
     font-size: 24px !important;
     font-weight: bold;
+    padding-bottom: 4px !important;
   }
 
   article,
