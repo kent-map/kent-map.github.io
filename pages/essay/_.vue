@@ -24,11 +24,11 @@ export default {
     essay: undefined
   }),
   mounted() {
-    this.getEssay(this.$route.params.pathMatch)
+    this.getEssay(this.$route.query.src)
   },
   methods: {
-    getEssay(title) {
-      api.get(`/essay?title=${title}&nocss`)
+    getEssay(src) {
+      api.get(`/essay?src=${src}&nocss`)
         .then(resp => resp.data)
         .then((html) => {
           this.essay = html

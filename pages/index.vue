@@ -42,8 +42,7 @@ export default {
           link.addEventListener('click', (e) => {
             e.stopPropagation()
             e.preventDefault()
-            let title = e.target.attributes.href.value.replace(/\/wiki\//, '')
-            this.$router.push(`/essay/${encodeURIComponent(title)}`)
+            this.$router.push({path: '/essay/', query: { src: e.target.attributes.href.value }})
           })
         })
       })

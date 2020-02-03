@@ -5,7 +5,7 @@ const routerBase = {
 }[process.env.DEPLOY_ENV] || { router: { base: '/' } }
 
 // const BUNDLE_VERSION = require('./package.json').version
-const BUNDLE_VERSION = '0.1.15'
+const BUNDLE_VERSION = '0.2.5'
 
 export default {
   // ...routerBase,
