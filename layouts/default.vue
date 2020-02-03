@@ -179,8 +179,9 @@
     display: none
   }
   .v-toolbar__title {
-    font-size: 24px !important;
+    font-size: 36px !important;
     font-weight: bold;
+    padding-bottom: 4px !important;
   }
 
   article,
