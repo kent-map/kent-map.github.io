@@ -8,30 +8,30 @@
 
 <script>
   import axios from 'axios'
+  import marked from 'marked'
   import { parseUrl } from '../utils'
+
+  const baseURL = 'https://jstor-labs.github.io/visual-essays/examples'
+  const api = axios.create({ baseURL })
 
   export default {
     name: 'index',
     data: () => ({
       html: undefined
     }),
-    created() {
-      this.$store.dispatch('setTitle', process.env.site_title)
-      this.$store.dispatch('setBanner', process.env.banner_image)
-    },
-    mounted() {
-      axios.get(`${process.env.app_md_endpoint}/${this.$options.name}.md`)
+    mounted() {              
+      api.get('/README.md')
       .then((resp) => {
-        this.html = this.$marked(resp.data)
+        this.html = marked(resp.data)
         this.$nextTick(() => {
           const host = window.location.host
           this.$refs.index.querySelectorAll('a').forEach((link) => {
             const parsedUrl = parseUrl(link.href)
+            console.log(parsedUrl.host === host)
             if (parsedUrl.host === host) {
               link.addEventListener('click', (e) => {
                 e.preventDefault()
-                const path = parsedUrl.pathname.replace(/^\/visual-essays/, '') // needed for GH Pages
-                this.$router.push({path: '/essay', query: { src: `${process.env.app_md_endpoint}${path}` }})
+                this.$router.push({path: '/essay', query: { src: `${baseURL}${parsedUrl.pathname}` }})
               })
             }
           })

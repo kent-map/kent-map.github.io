@@ -6,17 +6,35 @@
       app
     >
       <v-list dense>
-        <v-list-item link>
+
+        <v-list-item @click="drawer = false" nuxt to="/">
           <v-list-item-action>
             <v-icon>mdi-home</v-icon>
           </v-list-item-action>
           <v-list-item-content>    
-            <nuxt-link to="/">
-              <v-list-item-title>Home</v-list-item-title>
-            </nuxt-link>
+            <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link>
+
+        <v-list-item @click="drawer = false" nuxt to="/about">
+          <v-list-item-action>
+            <v-icon>mdi-information</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>About</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item @click="drawer = false" nuxt to="/help">
+          <v-list-item-action>
+            <v-icon>mdi-help-circle</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Help</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item @click="drawer = false" nuxt to="/contact">
           <v-list-item-action>
             <v-icon>mdi-contact-mail</v-icon>
           </v-list-item-action>
@@ -24,6 +42,7 @@
             <v-list-item-title>Contact</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -37,20 +56,17 @@
       absolute
       dark
       shrink-on-scroll
-      src="https://kg.jstor.org/w/images/c/cc/Viking_Bay%2C_Broadstairs.jpg"
+      :src="banner"
       scroll-target="#scrollableContent"
+      scroll-threshold="200"
     >
       <template v-slot:img="{ props }">
-        <!-- <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        /> -->
         <v-img v-bind="props"/>
       </template>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
 
-      <v-toolbar-title>Kent Maps</v-toolbar-title>
+      <v-toolbar-title>{{title}}</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
@@ -106,7 +122,9 @@
         height: 600,
         bannerHeight: 600,
         essayTopMargin: 140,
-        title: 'Visual Essays',
+        app_version: process.env.app_version,
+        bundle_version: process.env.bundle_version,
+        banner_image: process.env.banner_image,
 
         snackbar: false,
         y: 'bottom',
@@ -127,7 +145,9 @@
     computed: {
       logMessages() { return this.$store.getters.logMessages },
       viewport() { return this.$store.getters.viewport },
-      spacerHeight() { return this.$store.getters.spacerHeight }
+      spacerHeight() { return this.$store.getters.spacerHeight },
+      title() { return this.$store.getters.title || process.env.site_title },
+      banner() { return this.$store.getters.banner || process.env.banner_image }
     },
     mounted() {
       this.bannerHeight = this.viewport.height * .25 
@@ -202,7 +222,7 @@
           -ms-text-size-adjust: 100%;
   }
   body {
-      margin: 20px 60px;
+    /* margin: 20px 60px; */
   }
   ::-moz-selection {
       background-color: hsla(0,0%,0%,.5);
