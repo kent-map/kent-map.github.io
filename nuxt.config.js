@@ -4,22 +4,20 @@ import YAML from 'yaml'
 
 const SETTINGS = YAML.parse(fs.readFileSync('./settings.yaml', 'utf8'))
 
-const BUNDLE_VERSION = require('./package.json').version
-
 const routerBase = {
-  'GH_PAGES': { router: { base: ghPagesPath(SETTINGS.gh_path) } }
+  'GH_PAGES': { router: { base: '/' } }
 }[process.env.DEPLOY_ENV] || { router: { base: '/' } }
 
 export default {
   env: { ...SETTINGS,
     deployEnv: process.env.DEPLOY_ENV || 'PROD',
-    bundle_version: BUNDLE_VERSION,
     ve_service_endpoint: (process.env.DEPLOY_ENV || 'DEV') === 'DEV'
       ? 'http://localhost:5000'
       : 'https://us-central1-visual-essay.cloudfunctions.net',
     app_md_endpoint: (process.env.DEPLOY_ENV || 'DEV') === 'DEV'
-      ? 'http://localhost:8080'
-      : SETTINGS.gh_path,
+      // ? 'http://localhost:8080/docs'
+      ? `${SETTINGS.gh_path}/docs`
+      : `${SETTINGS.gh_path}/docs`
 
   },
   ...routerBase,
@@ -34,7 +32,7 @@ export default {
     script: [
         { src: process.env.DEPLOY_ENV === 'DEV'
           ? 'http://localhost:8080/lib/visual-essays.js'
-          : `https://visual-essays.online/lib/visual-essay-${BUNDLE_VERSION}.min.js` }
+          : `https://visual-essays.online/lib/visual-essay-${SETTINGS.visual_essays_version}.min.js` }
       ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -71,9 +69,4 @@ export default {
     dir: 'dist',
     fallback: true,
   }
-}
-
-function ghPagesPath(path) {
-  const elems = path.split('/')
-  return `/${elems[elems.length-1]}/`
 }

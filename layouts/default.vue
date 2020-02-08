@@ -84,7 +84,7 @@
  
     <v-footer ref="footer" :fixed="fixed" app>
       <v-flex class="text-xs-left">
-        <span>&nbsp;v{{ version }}</span>
+        <span>&nbsp;v{{ app_version }} ({{ bundle_version }})</span>
       </v-flex>
     </v-footer>
 
@@ -123,7 +123,7 @@
         bannerHeight: 600,
         essayTopMargin: 140,
         app_version: process.env.app_version,
-        bundle_version: process.env.bundle_version,
+        bundle_version: process.env.visual_essays_version,
         banner_image: process.env.banner_image,
 
         snackbar: false,
