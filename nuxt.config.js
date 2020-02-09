@@ -40,7 +40,8 @@ export default {
   },
   plugins: [
     { src: '@/plugins/detect-environment.js', ssr: false },
-    { src: '@/plugins/marked.js', ssr: false }
+    { src: '@/plugins/marked.js', ssr: false },
+    { src: '@/plugins/pages.js', ssr: false }
   ],
   buildModules: [
     '@nuxtjs/vuetify',

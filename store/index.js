@@ -6,6 +6,8 @@ Vue.use(Vuex)
 const state = {
   title: undefined,
   banner: undefined,
+  html: undefined,
+  pages: {},
   viewport: null,
   spacerHeight: 0,
   isMobile: false,
@@ -24,6 +26,8 @@ const state = {
 const mutations = {
   setTitle(state, title) { state.title = title },
   setBanner(state, banner) { state.banner = banner },
+  setHtml(state, html) { state.html = html },
+  setPage(state, page) { state.pages = { ...state.pages, ...page } },
   setViewport(state, viewport) { state.viewport = viewport },
   setSpacerHeight(state, height) { state.spacerHeight = height },
   setIsMobile(state, isMobile) { state.isMobile = isMobile },
@@ -68,6 +72,8 @@ const actions = {
   },
   setTitle: ({ commit }, title) => commit('setTitle', title),
   setBanner: ({ commit }, banner) => commit('setBanner', banner),
+  setPage: ({ commit }, page) => commit('setPage', page),
+  setHtml: ({ commit }, html) => commit('setHtml', html),
   setViewport: ({ commit }, viewport) => commit('setViewport', viewport),
   setSpacerHeight: ({ commit }, height) => commit('setSpacerHeight', height),
   setIsMobile: ({ commit }, isMobile) => commit('setIsMobile', isMobile),
@@ -83,6 +89,8 @@ const actions = {
 const getters = {
   title: state => state.title,
   banner: state => state.banner,
+  pages: state => state.pages,
+  html: state => state.html,
   viewport: state => state.viewport,
   spacerHeight: state => state.spacerHeight,
   isMobile: state => state.isMobile,
