@@ -50,7 +50,8 @@ export default {
           this.$refs[this.$options.name].querySelectorAll('a').forEach((link) => {
             if (link.href) {
               const parsedUrl = parseUrl(link.href)
-              if ((parsedUrl.host === window.location.host || window.location.host.indexOf('localhost:') === 0) &&
+              console.log(`parsedUrl.host=${parsedUrl.host} mwSite=${this.mwSite} window.location.hostname=${window.location.hostname}`)
+              if ((parsedUrl.host === this.mwSite || window.location.hostname === 'localhost') &&
                   parsedUrl.pathname.slice(0, 6) === '/wiki/' &&
                   parsedUrl.pathname.slice(6, 11) !== 'File:' &&
                   link.href.indexOf('#') === -1) {
