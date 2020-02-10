@@ -51,7 +51,7 @@ export default {
             if (link.href) {
               const parsedUrl = parseUrl(link.href)
               console.log(`parsedUrl.origin=${parsedUrl.origin} mwSite=${this.mwSite} window.location.hostname=${window.location.hostname}`)
-              if ((parsedUrl.origin === this.mwSite || window.location.hostname === 'localhost') &&
+              if ((parsedUrl.origin === this.mwSite || window.location.origin === parsedUrl.origin || window.location.hostname === 'localhost') &&
                   parsedUrl.pathname.slice(0, 6) === '/wiki/' &&
                   parsedUrl.pathname.slice(6, 11) !== 'File:' &&
                   link.href.indexOf('#') === -1) {
