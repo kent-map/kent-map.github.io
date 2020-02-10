@@ -1,6 +1,6 @@
 export function parseUrl (href) {
     /* eslint-disable no-useless-escape */
-    const match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)(\/[^?#]*)(\?[^#]*|)(#.*|)$/)
+    const match = href.match(/^(https?)\:\/\/(([^:\/?#]*)(?:\:([0-9]+))?)(\/[^?#]*)(\?[^#]*|)(#.*|)$/)
     return match && {
       protocol: match[1],
       host: match[2],

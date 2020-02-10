@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
+  mwSite: undefined,
   title: undefined,
   banner: undefined,
   html: undefined,
@@ -24,6 +25,7 @@ const state = {
 }
 
 const mutations = {
+  setMwSite(state, site) { state.mwSite = site },
   setTitle(state, title) { state.title = title },
   setBanner(state, banner) { state.banner = banner },
   setHtml(state, html) { state.html = html },
@@ -70,6 +72,7 @@ const actions = {
   nuxtServerInit(vuexContext, context) {
     // console.log('nuxtServerInit')
   },
+  setMwSite: ({ commit }, site) => commit('setMwSite', site),
   setTitle: ({ commit }, title) => commit('setTitle', title),
   setBanner: ({ commit }, banner) => commit('setBanner', banner),
   setPage: ({ commit }, page) => commit('setPage', page),
@@ -87,6 +90,7 @@ const actions = {
 }
 
 const getters = {
+  mwSite: state => state.mwSite,
   title: state => state.title,
   banner: state => state.banner,
   pages: state => state.pages,

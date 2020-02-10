@@ -6,7 +6,8 @@ export default {
     data: () => ({}),
     computed: {
       pageUrl() { return this.$store.getters.pages[this.$options.name] },
-      html() { return this.$store.getters.html }
+      html() { return this.$store.getters.html },
+      mwSite() { return this.$store.getters.mwSite }
     },
     mounted() {
       const loc = parseUrl(this.pageUrl)
@@ -46,20 +47,19 @@ export default {
       },
       updateLinks() {
         if (this.$refs[this.$options.name]) {
-          const host = window.location.host
           this.$refs[this.$options.name].querySelectorAll('a').forEach((link) => {
             if (link.href) {
-              let src = link.href
               const parsedUrl = parseUrl(link.href)
-              if (parsedUrl.host === host) {
-                src = `${process.env.app_md_endpoint}${path}`
+              if ((parsedUrl.host === window.location.host || window.location.host.indexOf('localhost:') === 0) &&
+                  parsedUrl.pathname.slice(0, 6) === '/wiki/' &&
+                  parsedUrl.pathname.slice(6, 11) !== 'File:' &&
+                  link.href.indexOf('#') === -1) {
+                const essayTitle = parsedUrl.pathname.slice(6)
+                link.removeAttribute('href')
+                link.addEventListener('click', (e) => {
+                  this.$router.push(`/essay/${essayTitle}`)
+                })
               }
-              link.removeAttribute('href')
-              link.addEventListener('click', (e) => {
-                e.preventDefault()
-                // const path = parsedUrl.pathname.replace(/^\/visual-essays/, '') // needed for GH Pages
-                this.$router.push({path: '/essay', query: { src }})
-              })
             }
           })
         }
