@@ -59,15 +59,26 @@ export default {
               const parsedUrl = parseUrl(link.href)
               // console.log(`parsedUrl.origin=${parsedUrl.origin} mwSite=${this.mwSite} window.location.hostname=${window.location.hostname}`)
               if ((parsedUrl.origin === this.mwSite || window.location.origin === parsedUrl.origin || window.location.hostname === 'localhost') &&
-                  parsedUrl.pathname.slice(0, 6) === '/wiki/' &&
-                  parsedUrl.pathname.slice(6, 11) !== 'File:' &&
-                  link.href.indexOf('#') === -1) {
-                const essayTitle = parsedUrl.pathname.slice(6)
-                link.removeAttribute('href')
-                link.addEventListener('click', (e) => {
-                  this.$router.push(`/essay/${essayTitle}`)
-                })
+                   link.href.indexOf('#') === -1) {
+                if (parsedUrl.pathname.slice(0, 6) === '/wiki/') {
+                  if (parsedUrl.pathname.slice(6, 11) === 'File:') {
+                    link.href = `${this.mwSite}/wiki/File:${parsedUrl.pathname.slice(11)}`
+                  } else {
+                    const essayTitle = parsedUrl.pathname.slice(6)
+                    link.removeAttribute('href')
+                    link.addEventListener('click', (e) => {
+                      this.$router.push(`/essay/${essayTitle}`)
+                    })
+                  }
+                }
               }
+            }
+          })
+          this.$refs[this.$options.name].querySelectorAll('img').forEach((img) => {
+            const parsedUrl = parseUrl(img.src)
+            if ((parsedUrl.origin === this.mwSite || window.location.origin === parsedUrl.origin || window.location.hostname === 'localhost') &&
+                 parsedUrl.pathname.slice(0, 10) === '/w/images/') {
+              img.src = `${this.mwSite}${parsedUrl.pathname}`
             }
           })
         }
