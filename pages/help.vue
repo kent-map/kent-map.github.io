@@ -11,6 +11,9 @@
 
   export default {
     name: 'help',
-    mixins: [ Mixin ]
+    mixins: [ Mixin ],
+    mounted() {
+      this.getStaticPage(this.$store.getters.pages[this.$options.name])
+    }
   }
 </script>

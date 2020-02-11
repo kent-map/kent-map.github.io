@@ -1,21 +1,19 @@
 <template>
   <v-layout>
     <v-flex>
-      <div :ref="$options.name" v-html="html"/>
+      <div :ref="$options.name" v-html="essay"/>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-  import Mixin from './mixin'
+import Mixin from './mixin'
 
-  export default {
-    name: 'index',
-    mixins: [ Mixin ],
-    mounted() {
-      // Reset banner and title to defaults
-      this.$store.dispatch('setTitle', process.env.site_title)
-      this.$store.dispatch('setBanner', process.env.banner_image)
-    }
+export default {
+  name: 'index',
+  mixins: [ Mixin ],
+  mounted() {
+    this.getEssay(`${this.mwSite}/wiki/${process.env.root_essay}`)  
   }
+}
 </script>

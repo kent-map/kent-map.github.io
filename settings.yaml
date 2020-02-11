@@ -1,12 +1,12 @@
 site_title: Kent Maps
 banner_image: https://kg.jstor.org/w/images/c/cc/Viking_Bay,_Broadstairs.jpg
-root_essay: https://kg.jstor.org/wiki/Kent:Essays
-index: https://kg.jstor.org/wiki/Kent:Mobile_Landscapes
+root_essay: Kent:Mobile_Landscapes
+index: https://kg.jstor.org/wiki/Kent:Essays
 about: https://kg.jstor.org/wiki/Kent:About
 help: https://jstor-labs.github.io/visual-essays/help.md
 contact: https://kg.jstor.org/wiki/Kent:Contact
 context: kent-maps
 gh_path: https://kent-map.github.io
 mw_site: https://kg.jstor.org
-app_version: 0.3.5
-visual_essays_version: 0.3.4
+app_version: 0.4.0
+visual_essays_version: 0.3.5
